@@ -6,6 +6,7 @@ import { modificationButton } from "./edition_mode.js";
 fetch(`http://localhost:5678/api/works`)
   .then((response) => response.json())
   .then((projectsArray) => {
+    console.table(projectsArray);
     displayProjects(projectsArray);
     localStorage.setItem("projectsArray", JSON.stringify(projectsArray));
     editionMode();
@@ -23,6 +24,7 @@ export function displayProjects(projectsArray) {
     const img = document.createElement("img");
     img.setAttribute("src", project.imageUrl);
     const caption = document.createElement("figcaption");
+    projectCard.id = `work-${project.id}`;
     caption.innerText = project.title;
     projectSection.appendChild(projectCard);
     projectCard.appendChild(img);

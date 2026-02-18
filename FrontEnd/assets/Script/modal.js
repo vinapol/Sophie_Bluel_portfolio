@@ -1,3 +1,4 @@
+import { deleteButtonFunction } from "./delete_button_function.js";
 import { modalForm } from "./modal-form.js";
 
 export function modalView() {
@@ -52,8 +53,13 @@ export function modalContent(overlay, window, page) {
 
 export function imageList(window, title, projectsArray, addWorks) {
   const imgBox = document.createElement("div");
+  const supressBack = document.querySelectorAll(".back");
 
   title.textContent = "Galerie photo";
+
+  supressBack.forEach((e) => {
+    e.remove();
+  });
 
   window.appendChild(imgBox);
 
@@ -64,10 +70,12 @@ export function imageList(window, title, projectsArray, addWorks) {
     const img = document.createElement("img");
     const trashCan = document.createElement("i");
     const deleteWork = document.createElement("button");
+    deleteWork.dataset.id = project.id;
     work.classList.add("img-supress");
     img.classList.add("img-modal");
     deleteWork.classList.add("supress");
     trashCan.classList.add("fa-solid", "fa-trash-can", "trash");
+    deleteWork.classList.add("delete-work");
     imgBox.appendChild(work);
     work.appendChild(img);
     work.appendChild(deleteWork);
@@ -76,9 +84,12 @@ export function imageList(window, title, projectsArray, addWorks) {
   });
 
   addWorks.textContent = "Ajouter une photo";
+  addWorks.classList.remove("form");
   addWorks.addEventListener("click", () => {
     modalForm(window, imgBox, title, addWorks);
   });
+
+  deleteButtonFunction();
 }
 function modalClosin(overlay, window, page) {
   window.remove();

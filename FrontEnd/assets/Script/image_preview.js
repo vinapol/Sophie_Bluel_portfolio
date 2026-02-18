@@ -1,4 +1,4 @@
-export function imgUrl(imageDiv, image, imageIcon, limits, addProject) {
+export function imgPreview(imageDiv, image, imageIcon, limits, addProject) {
   const previewImg = document.createElement("img");
   previewImg.classList.add("preview-img");
   previewImg.style.display = "none";

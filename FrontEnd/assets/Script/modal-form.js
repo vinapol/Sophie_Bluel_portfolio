@@ -1,5 +1,6 @@
-import { imageList} from "./modal.js";
-import { imgUrl, submitProject } from "./submit_project.js";
+import { imgPreview } from "./image_preview.js";
+import { imageList } from "./modal.js";
+import { submitProject } from "./submit_project.js";
 
 export function modalForm(window, imgBox, title, addWorks) {
   const getCategories = localStorage.getItem("categories");
@@ -18,7 +19,7 @@ export function modalForm(window, imgBox, title, addWorks) {
   const imageDiv = document.createElement("div");
   const image = document.createElement("input");
   const imageIcon = document.createElement("i");
-  const addProject = document.createElement("button");
+  const addImage = document.createElement("button");
   const limits = document.createElement("p");
   const titre = document.createElement("label");
   const label = document.createElement("input");
@@ -30,7 +31,7 @@ export function modalForm(window, imgBox, title, addWorks) {
   form.appendChild(imageDiv);
   imageDiv.appendChild(image);
   imageDiv.appendChild(imageIcon);
-  imageDiv.appendChild(addProject);
+  imageDiv.appendChild(addImage);
   imageDiv.appendChild(limits);
   form.appendChild(titre);
   form.appendChild(label);
@@ -42,7 +43,7 @@ export function modalForm(window, imgBox, title, addWorks) {
   image.name = "image";
   image.accept = "image/png, image/jpeg";
 
-  addProject.textContent = "+ Ajouter projet";
+  addImage.textContent = "+ Ajouter projet";
   limits.textContent = "jpg, png : 4mo max";
 
   titre.textContent = "Titre";
@@ -62,12 +63,13 @@ export function modalForm(window, imgBox, title, addWorks) {
   imageDiv.classList.add("image-div-form", "form");
   image.classList.add("new-image", "form");
   imageIcon.classList.add("fa-regular", "fa-image", "new-img-icon", "form");
-  addProject.classList.add("add-project", "form");
+  addImage.classList.add("add-project", "form");
   limits.classList.add("limits", "form");
   titre.classList.add("form-title-1", "form");
   chooseCat.classList.add("form-title-2", "form");
   label.classList.add("new-project-title", "form");
   select.classList.add("select", "form");
+  addWorks.classList.add("form");
 
   const endForm = document.querySelectorAll("form");
 
@@ -77,6 +79,27 @@ export function modalForm(window, imgBox, title, addWorks) {
     });
     imageList(window, title, projectArray, addWorks);
   });
-  imgUrl(imageDiv,image,imageIcon,limits,addProject)
-  submitProject()
+
+  imgPreview(imageDiv, image, imageIcon, limits, addImage);
+
+  if (addWorks.classList.contains("form")) {
+    addWorks.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      const file = image.files[0];
+      const titleValue = label.value;
+      const categoryValue = select.value;
+
+      if (!file || !titleValue || !categoryValue) {
+        alert("Veuillez remplir tous les champs");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("title", titleValue);
+      formData.append("category", categoryValue);
+      await submitProject(formData);
+    });
+  }
 }
