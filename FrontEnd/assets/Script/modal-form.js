@@ -1,4 +1,5 @@
-import { imageList, modalView } from "./modal.js";
+import { imageList} from "./modal.js";
+import { imgUrl, submitProject } from "./submit_project.js";
 
 export function modalForm(window, imgBox, title, addWorks) {
   const getCategories = localStorage.getItem("categories");
@@ -76,4 +77,6 @@ export function modalForm(window, imgBox, title, addWorks) {
     });
     imageList(window, title, projectArray, addWorks);
   });
+  imgUrl(imageDiv,image,imageIcon,limits,addProject)
+  submitProject()
 }
