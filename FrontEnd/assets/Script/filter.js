@@ -3,10 +3,10 @@ import { displayProjects } from "./dynamic_project.js";
 fetch(`http://localhost:5678/api/categories`)
   .then((response) => response.json())
   .then((categories) => {
-    console.table(categories);
     allButton();
     displayFilters(categories);
     filterButtonFunction();
+    localStorage.setItem("categories", JSON.stringify(categories))
   });
 function allButton() {
   const filter = document.getElementById("filter-content");

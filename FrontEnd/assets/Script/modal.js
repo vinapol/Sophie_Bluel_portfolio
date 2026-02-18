@@ -1,17 +1,16 @@
+import { modalForm } from "./modal-form.js";
+
 export function modalView() {
   const page = document.querySelector("body");
   const window = document.createElement("div");
   const overlay = document.createElement("aside");
-  const imgBox = document.createElement("div");
   overlay.appendChild(window);
   page.appendChild(overlay);
-  window.appendChild(imgBox);
   window.classList.add("modal-box");
   overlay.classList.add("modal-overlay");
-  imgBox.classList.add("img-box");
   page.style.overflow = "hidden";
 
-  modalContent(overlay, window, page, imgBox);
+  modalContent(overlay, window, page);
 
   overlay.addEventListener("click", () => {
     modalClosin(overlay, window, page);
@@ -22,7 +21,7 @@ export function modalView() {
   });
 }
 
-function modalContent(overlay, window, page, imgBox) {
+export function modalContent(overlay, window, page) {
   const storedProject = localStorage.getItem("projectsArray");
 
   const projectsArray = JSON.parse(storedProject);
@@ -38,6 +37,27 @@ function modalContent(overlay, window, page, imgBox) {
   close.addEventListener("click", () => {
     modalClosin(overlay, window, page);
   });
+
+  const line = document.createElement("div");
+  line.classList.add("modal-line");
+  window.appendChild(line);
+
+  const addWorks = document.createElement("button");
+  addWorks.classList.add("add-works-button");
+  window.appendChild(addWorks);
+  addWorks.textContent = "Ajouter une photo";
+
+  imageList(window, title, projectsArray, addWorks);
+}
+
+export function imageList(window, title, projectsArray, addWorks) {
+  const imgBox = document.createElement("div");
+
+  title.textContent = "Galerie photo";
+
+  window.appendChild(imgBox);
+
+  imgBox.classList.add("img-box");
 
   projectsArray.forEach((project) => {
     const work = document.createElement("div");
@@ -55,17 +75,11 @@ function modalContent(overlay, window, page, imgBox) {
     img.setAttribute("src", project.imageUrl);
   });
 
-  const line = document.createElement("div")
-  line.classList.add("modal-line")
-  window.appendChild(line)
-  
-  const addWorks = document.createElement("button")
-  addWorks.classList.add("add-works-button")
-  window.appendChild(addWorks)
-  addWorks.textContent = "Ajouter une photo"
-
+  addWorks.textContent = "Ajouter une photo";
+  addWorks.addEventListener("click", () => {
+    modalForm(window, imgBox, title, addWorks);
+  });
 }
-
 function modalClosin(overlay, window, page) {
   window.remove();
   overlay.remove();
