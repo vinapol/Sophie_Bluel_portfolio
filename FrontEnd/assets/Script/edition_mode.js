@@ -1,3 +1,5 @@
+import { modalView } from "./modal.js";
+
 export function editionMode() {
   var token = localStorage.getItem("connexionToken");
   if (token) {
@@ -39,20 +41,20 @@ export function modificationButton() {
     const portoflio = document.querySelector(".portfolio-head");
     const icon = document.createElement("i");
     const modification = document.createElement("a");
-    const modificationButton = document.createElement("div")
-    modificationButton.classList.add("modification-button")
-    portoflio.appendChild(modificationButton)
-    modificationButton.appendChild(icon)
-    modificationButton.appendChild(modification)
+    const modificationButton = document.createElement("div");
+    modificationButton.classList.add("modification-button");
+    portoflio.appendChild(modificationButton);
+    modificationButton.appendChild(icon);
+    modificationButton.appendChild(modification);
     modification.textContent = "modifier";
     icon.classList.add("fa-solid", "fa-pen-to-square");
-    modal()
+    modal();
   }
 }
 
-function modal(){
-    const modification = document.querySelector(".modification-button")
-    modification.addEventListener("click", () => {
-        console.log("cliqué")
-    })
+function modal() {
+  const modification = document.querySelector(".modification-button");
+  modification.addEventListener("click", () => {
+    modalView();
+  });
 }

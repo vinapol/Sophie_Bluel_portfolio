@@ -34,7 +34,7 @@ export function filterButtonFunction() {
 
   buttons.forEach((button) => {
     button.addEventListener("click", (e) => {
-      buttons.forEach(btn => btn.classList.remove("selected"))
+      buttons.forEach((btn) => btn.classList.remove("selected"));
       document.innerHTML = "";
       const value = e.currentTarget.dataset.categoryId;
       e.currentTarget.classList.add("selected");

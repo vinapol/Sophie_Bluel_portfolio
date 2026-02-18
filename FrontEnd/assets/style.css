@@ -128,7 +128,7 @@ table {
 }
 /** end reset css**/
 body {
-	background-color: #FFFEF8;
+  background-color: #fffef8;
   max-width: 1140px;
   margin: auto;
   font-family: "Work Sans";
@@ -266,10 +266,10 @@ nav li a:hover {
   flex-direction: row;
   font-size: 14px;
   gap: 5px;
+  text-underline-offset: 4px;
 }
-.modification-button:hover {
-  font-size: 18px;
-  transition: 500ms;
+.modification-button a:hover {
+  text-decoration: underline;
 }
 .gallery {
   width: 100%;
@@ -392,4 +392,112 @@ footer li {
   align-self: center;
   margin-top: 38px;
   color: black;
+}
+/*modal*/
+.modal-overlay{
+	position: fixed;
+	display: flex;
+	z-index: 5000;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	background-color: rgba(0, 0, 0, 0.3);
+	align-items: center;
+	justify-content: center;
+}
+.modal-box{
+	position:relative;
+	display: flex;
+	z-index: 10000;
+	background-color: #ffff;
+	width: 630px;
+	height: 688px;
+	border-radius: 10px;
+}
+
+.modal-title{
+	position: relative;
+	font-size: 26px;
+	width: 173px;
+	height: 30px;
+	white-space: nowrap;
+	top: 60px;
+	right: 200px;
+}
+.close{
+	position: relative;
+	font-size: 24px;
+	right: 16px;
+	top: 26px;
+}
+
+.close:hover{
+	text-decoration: underline;
+}
+.img-box{
+	position: relative;
+	top: 136px;
+	left: 105px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	column-gap: 10px;
+	row-gap: 10px;
+	height: 307px;
+}
+.img-supress{
+	width: 76.86px;
+	height: 102.97px;
+	position: relative;
+}
+.img-modal{
+	width: 76.86px;
+	height: 102.87px;
+}
+
+.img-modal:hover{
+	border: 1px solid #1d6154;
+}
+.supress{
+	position: absolute;
+	display: flex;
+	width: 17px;
+	height: 17px;
+	background-color: rgb(0, 0, 0);
+	border-radius: 2px;
+	border: none;
+	right: 5px;
+	top:5px;
+	justify-content: center;
+	
+}
+.trash{
+	font-size:10px;
+	color: #ffff;
+	margin-top: 2px;
+}
+.modal-line{
+	position: absolute;
+	width:420px ;
+	height: 1px;
+	background-color: #B3B3B3;
+	bottom: 119px;
+	left: 105px;
+}
+.add-works-button{
+	position: absolute;
+	width:237px;
+	height: 36px;
+	top: 600px;
+	left: 195px;
+	background-color: #1d6154;
+	border: none;
+	border-radius: 60px;
+	color: #ffff;
+	font-family: syne;
+}
+
+.add-works-button:hover{
+	border: 2px solid #ffffffa4;
 }
