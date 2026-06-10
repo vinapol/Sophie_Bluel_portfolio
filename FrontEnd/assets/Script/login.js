@@ -22,5 +22,6 @@ function connexion() {
   const token = localStorage.getItem("connexionToken");
   if (token) {
     window.location.href = "index.html";
+    console.log(token)
   }
 }
