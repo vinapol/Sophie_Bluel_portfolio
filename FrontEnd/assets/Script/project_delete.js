@@ -1,3 +1,4 @@
+import { refreshProjects } from "./refresh_project.js";
 export async function deleteWork(workId) {
     const token = localStorage.getItem("connexionToken");
 
@@ -10,8 +11,7 @@ export async function deleteWork(workId) {
     });
 
     if (response.ok) {
-        document.getElementById(`work-${workId}`).remove();
-        window.location.reload();
+        await refreshProjects();
     } else {
         alert("Erreur lors de la suppression.");
     }

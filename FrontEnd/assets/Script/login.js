@@ -12,8 +12,10 @@ form.addEventListener("submit", (login) => {
   })
     .then((response) => response.json())
     .then(
-      (result) => localStorage.setItem("connexionToken", result.token),
-      connexion(),
+      (result) => {
+        localStorage.setItem("connexionToken", result.token);
+        connexion();
+      }
     )
     .catch((error) => console.error("Erreur :", error));
 });

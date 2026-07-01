@@ -1,8 +1,13 @@
 import { imgPreview } from "./image_preview.js";
 import { imageList } from "./modal.js";
 import { submitProject } from "./submit_project.js";
+import { refreshProjects } from "./refresh_project.js";
 
 export function modalForm(window, imgBox, title, addWorks) {
+  const cleanAddWorks = addWorks.cloneNode(true);
+  addWorks.replaceWith(cleanAddWorks);
+  addWorks = cleanAddWorks;
+
   const getCategories = localStorage.getItem("categories");
   const categorie = JSON.parse(getCategories);
 
@@ -12,7 +17,7 @@ export function modalForm(window, imgBox, title, addWorks) {
   imgBox.remove();
   title.innerHTML = "Ajout photo";
   addWorks.innerHTML = "Valider";
-  addWorks.style = "background-color = #A7A7A7";
+  addWorks.style.backgroundColor = "#A7A7A7";
 
   const back = document.createElement("i");
   const form = document.createElement("form");
@@ -77,10 +82,27 @@ export function modalForm(window, imgBox, title, addWorks) {
     endForm.forEach((e) => {
       e.remove();
     });
+    back.remove();
     imageList(window, title, projectArray, addWorks);
   });
 
   imgPreview(imageDiv, image, imageIcon, limits, addImage);
+
+  function checkFormValidity() {
+    const file = image.files[0];
+    const titleValue = label.value.trim();
+    const categoryValue = select.value;
+
+    if (file && titleValue && categoryValue) {
+      addWorks.style.backgroundColor = "#1D6154";
+    } else {
+      addWorks.style.backgroundColor = "#A7A7A7";
+    }
+  }
+
+  image.addEventListener("change", checkFormValidity);
+  label.addEventListener("input", checkFormValidity);
+  select.addEventListener("change", checkFormValidity);
 
   if (addWorks.classList.contains("form")) {
     addWorks.addEventListener("click", async (e) => {
@@ -100,6 +122,14 @@ export function modalForm(window, imgBox, title, addWorks) {
       formData.append("title", titleValue);
       formData.append("category", categoryValue);
       await submitProject(formData);
+      const updatedProjects = await refreshProjects();
+
+      endForm.forEach((e) => {
+        e.remove();
+      });
+      back.remove();
+
+      imageList(window, title, updatedProjects, addWorks);
     });
   }
 }

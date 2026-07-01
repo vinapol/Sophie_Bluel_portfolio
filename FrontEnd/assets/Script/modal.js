@@ -52,6 +52,15 @@ export function modalContent(overlay, window, page) {
 }
 
 export function imageList(window, title, projectsArray, addWorks) {
+  const cleanAddWorks = addWorks.cloneNode(true);
+  addWorks.replaceWith(cleanAddWorks);
+  addWorks = cleanAddWorks;
+  addWorks.style.backgroundColor = "";
+
+  const existingImgBox = window.querySelector(".img-box");
+  if (existingImgBox) {
+    existingImgBox.remove();
+  }
   const imgBox = document.createElement("div");
   const supressBack = document.querySelectorAll(".back");
 

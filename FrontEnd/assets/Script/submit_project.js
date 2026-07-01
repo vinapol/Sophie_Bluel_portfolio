@@ -1,3 +1,5 @@
+import { refreshProjects } from "./refresh_project.js";
+
 export async function submitProject(formData) {
     const token = localStorage.getItem("connexionToken");
     console.log(token)
@@ -13,7 +15,7 @@ export async function submitProject(formData) {
         if (response.ok) {
             const result = await response.json();
             alert("Projet ajouté avec succès !");
-            window.location.reload();
+            await refreshProjects();
         } else {
             alert("Erreur lors de l'envoi");
         }
